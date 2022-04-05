@@ -191,6 +191,9 @@ mysql-client:  # Opens mysql client in the mysql container shell
 %-restart: # Restart the specified service container
 	docker-compose restart $*
 
+app-restart-devserver: ## Kill the enterprise-catalog development server. Watcher should restart it.
+	docker-compose exec app bash -c 'kill $$(ps aux | egrep "manage.py ?\w* runserver" | egrep -v "while|grep" | awk "{print \$$2}")'
+
 %-attach: ## Attach terminal I/O to the specified service container
 	docker attach enterprise.catalog.$*
 
