@@ -35,6 +35,9 @@ from enterprise_catalog.apps.api.v1.views.enterprise_catalog_refresh_data_from_d
 from enterprise_catalog.apps.api.v1.views.enterprise_customer import (
     EnterpriseCustomerViewSet,
 )
+from enterprise_catalog.apps.api.v1.views.curation.highlights import (
+    EnterpriseCurationConfigReadOnlyViewSet,
+)
 
 
 app_name = 'v1'
@@ -43,6 +46,7 @@ router = DefaultRouter()
 router.register(r'enterprise-catalogs', EnterpriseCatalogCRUDViewSet, basename='enterprise-catalog')
 router.register(r'enterprise-catalogs', EnterpriseCatalogContainsContentItems, basename='enterprise-catalog')
 router.register(r'enterprise-customer', EnterpriseCustomerViewSet, basename='enterprise-customer')
+router.register(r'enterprise-curations', EnterpriseCurationConfigReadOnlyViewSet, basename='enterprise-curations')
 
 urlpatterns = [
     path('enterprise-catalogs/catalog_csv_data', CatalogCsvDataView.as_view(),

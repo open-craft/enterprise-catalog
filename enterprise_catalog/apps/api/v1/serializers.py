@@ -21,6 +21,9 @@ from enterprise_catalog.apps.catalog.models import (
     EnterpriseCatalog,
 )
 from enterprise_catalog.apps.catalog.utils import get_content_filter_hash
+from enterprise_catalog.apps.curation.models import (
+    EnterpriseCurationConfig,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -237,3 +240,21 @@ class ContentMetadataSerializer(ImmutableStateSerializer):
 
         for serialized_run in serialized_course_runs:
             serialized_run['enrollment_url'] = urls_by_course_run_key.get(serialized_run['key'])
+
+
+class EnterpriseCurationSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the `EnterpriseCurationConfig` model.
+    """
+    enterprise_customer = serializers.UUIDField(source='enterprise_uuid')
+    title = serializers.CharField()
+    is_highlight_feature_active = serializers.BooleanField()
+
+    class Meta:
+        model = EnterpriseCurationConfig
+        fields = [
+            'uuid',
+            'enterprise_customer',
+            'title',
+            'is_highlight_feature_active',
+        ]
